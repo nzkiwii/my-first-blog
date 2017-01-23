@@ -1,0 +1,65 @@
+	{% extends 'base.html' %}
+		
+    {% block content %}
+	{% load humanize %}
+	
+	<div class="container">
+			<h3>Recent Filings<br><small>Sort by clicking on the table headers or search.</small></h3>
+			<button id="ajax-button" class="btn btn-primary">AJAX</button>
+			{% for message in messages %}
+				<div class="alert alert-danger">{{ message }}</div>
+			{% endfor %}
+			<table id="company-table" class="table table-striped col-md-12" cellspacing="0" width="100%">
+				<thead>
+					<th>Company Name</th>
+					<th>Ticker</th>
+					<th>Filing Date</th>
+					<th>Officer Title</th>
+					<th>> 10% Owner?</th>
+					<th>Shares Purchased</th>
+					<th>Purchase Price</th>
+					<th>Direct or Indirect</th>
+					
+				</thead>
+				<tbody>
+				
+				</tbody>
+			</table>			
+	</div>
+		<!--Datatable initialization-->
+		<script type="text/javascript" language="javascript" class="init">
+			$(document).ready(function() {
+				 $('#company-table').dataTable( {
+					 "processing": true,
+					 "ajax": {
+						 "processing": true,
+						 "url": "{% url 'get_company_filings' %}",
+						 "dataSrc": ""
+					 },
+
+					 "columns": [
+							 { "data": "fields.report_owner_name" },
+							 { "data": "fields.ticker" },
+							 { "data": "fields.filing_date" },
+							 { "data": "fields.officer_title" },
+							 { "data": "fields.is_ten_percent_owner" },
+						 ]
+				 } );
+			 } )
+		</script>
+		<!--Ajax call-->
+		<script>
+		$('#ajax-button').click(function () {
+			$.ajax({
+				url: '/get-company-filings/',
+				type: 'get',
+				success: function(data) {
+					alert(data);
+				},
+				failure: function(data) { 
+					alert('Got an error dude');
+				}
+			}); 
+		});
+		</script>
+	{% endblock %}

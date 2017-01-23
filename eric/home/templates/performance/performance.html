@@ -1,0 +1,27 @@
+
+	{% extends 'base.html' %}
+
+	{% block content %}
+		<!-- Main jumbotron for a primary marketing message or call to action -->
+		<div class="jumbotron">
+		  <div id="jumbotron-container" class="container">
+			<h1>Performance</h1>
+			<p>How our services have performed so far.</p>
+		  </div>
+		</div>
+		<!--Login Messages-->
+		<div class="container">
+			<div class="col-md-12 text-center">
+			{% for message in messages %}
+				<div class="alert alert-danger">{{ message }}</div>
+			{% endfor %}
+			</div>
+		</div>
+		<div class="container">
+		  <!-- Example row of columns -->
+
+		<div>
+
+	{% endblock %}
+
+</html>

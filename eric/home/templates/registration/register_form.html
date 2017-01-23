@@ -1,0 +1,56 @@
+
+	{% extends 'base.html' %}
+
+	{% block content %}
+	{% load crispy_forms_tags %}
+
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="col-md-4 col-md-offset-1 centering">
+				<h2 style="margin-bottom: 5vh;">Join Edgar Alert 2</br><small>Get customized alerts about the companies you're following!</small></h2>
+				{% for message in messages %}
+					{% if 'error' in message.tags %}
+						<div class="alert alert-danger">{{ message }}</div>
+					{% else %}
+						<div class="alert alert-{{ message.tags }}">{{ message }}</div>
+					{% endif %}
+				{% endfor %}
+				<h4>Create your personal account</h4>
+				<hr style="border-color: grey;">
+				<form class="" method="POST" action="">
+				  {% csrf_token %}
+					<div class="form-group">
+					  {{ form.username }}
+					</div>
+					<div class="form-group">
+					  {{ form.email }}
+					</div>
+					<div class="form-group">
+					  {{ form.password }}
+					</div>
+					<div class="form-group">
+					  {{ profile_form.phone_number }}
+					</div>
+					<div class="form-group">
+						<h5 class="pull-left">Receive text alerts?  </h5>
+					  {{ profile_form.receive_text }}
+					</div>
+					<div class="form-group">
+					  <h5 class="pull-left">Receive email alerts?  </h5>
+					  {{ profile_form.receive_email }}
+					</div>
+					{% buttons %}
+					<a class="btn btn-success btn-block" href="/register" role="button">Sign Up</a>
+						{% bootstrap_icon "user "%} Register
+					{% endbuttons %}
+				  </form>
+			</div>
+			<div class="col-md-4 col-md-offset-1">
+				<div style="border: solid 1px black; height: 100%; padding-top: 20vh; padding-bottom: 20vh;" class="text-center">Company Image</div>
+			</div>
+		</div>
+	</div>
+
+	{% endblock %}
+
+</html>

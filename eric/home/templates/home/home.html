@@ -1,0 +1,50 @@
+
+	{% extends 'base.html' %}
+
+	{% block content %}
+		<!-- Main jumbotron for a primary marketing message or call to action -->
+		<div class="jumbotron">
+		  <div id="jumbotron-container" class="container">
+			<h1>Insider</h1>
+			<p>Stay ahead of the market with Insider. Know the second an executive places a buy or sell order on their company's stock with
+			customized emails and text alerts sent straight to your phone. Trade alongside the executives that run your favorite companies.
+			Beat the market!</p>
+		  </div>
+		</div>
+		<!--Login Messages-->
+		<div class="container">
+			<div class="col-md-12 text-center">
+			{% for message in messages %}
+				<div class="alert alert-danger">{{ message }}</div>
+			{% endfor %}
+			</div>
+		</div>
+		<div class="container">
+		  <!-- Example row of columns -->
+		  <div class="row">
+			<div class="col-md-3">
+			  <h2>Our Performance</h2>
+			  <p>Measure the performance of our services.</p>
+			  <p><a class="btn btn-primary" href="{% url 'performance' %}" role="button">Our Performance &raquo;</a></p>
+			</div>
+			<div class="col-md-3">
+			  <h2>Recent Filing</h2>
+			  <p>Check out the most recent company filing.</p>
+			  <p><a class="btn btn-success" href="/company-filings/" role="button">Recent Filings &raquo;</a></p>
+		   </div>
+			<div class="col-md-3">
+			  <h2>How it Works</h2>
+			  <p>Learn how Insider can help you beat the market.</p>
+			  <p><a class="btn btn-info" href="{% url 'how' %}" role="button">How it Works &raquo;</a></p>
+			</div>
+			<div class="col-md-3">
+			  <h2>Pricing</h2>
+			  <p>Our easy to understand pricing plans suited for different types of needs.</p>
+			  <p><a class="btn btn-warning" href="{% url 'pricing' %}" role="button">Pricing &raquo;</a></p>
+			</div>
+		  </div>
+		<div>
+
+	{% endblock %}
+
+</html>

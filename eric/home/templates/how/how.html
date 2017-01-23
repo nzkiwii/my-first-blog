@@ -1,0 +1,29 @@
+
+	{% extends 'base.html' %}
+
+	{% block content %}
+		<!-- Main jumbotron for a primary marketing message or call to action -->
+		<div class="jumbotron">
+		  <div id="jumbotron-container" class="container">
+			<h1>How</h1>
+			<p>How our amazing system works.</p>
+		  </div>
+		</div>
+		<!--Login Messages-->
+		<div class="container">
+			<div class="col-md-12 text-center">
+			{% for message in messages %}
+				<div class="alert alert-danger">{{ message }}</div>
+			{% endfor %}
+			</div>
+		</div>
+		<div class="container">
+		  <!-- Example row of columns -->
+        <p>After you've signed up you select the companies you would like to follow. Whenever an insider places a buy or sell
+				order on that stock we will immedietly send you a message telling you how much they bought or sold and at what price. We
+			will also include current stock info (expand) to help you.</p>
+		<div>
+
+	{% endblock %}
+
+</html>

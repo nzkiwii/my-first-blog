@@ -1,0 +1,74 @@
+
+	{% extends 'base.html' %}
+
+	{% block content %}
+		<!-- Main jumbotron for a primary marketing message or call to action -->
+		<div class="jumbotron">
+		  <div id="jumbotron-container" class="container">
+			<h1>Pricing</h1>
+			<p>We have a range of great options for investors of all size.</p>
+		  </div>
+		</div>
+		<!--Login Messages-->
+		<div class="container">
+			<div class="col-md-12 text-center">
+			{% for message in messages %}
+				<div class="alert alert-danger">{{ message }}</div>
+			{% endfor %}
+			</div>
+		</div>
+		<div class="container">
+		  <!-- Example row of columns -->
+        <table class="table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Pricing Option 1</th>
+              <th>Pricing Option 2</th>
+              <th>Pricing Option 3</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Benefit 1</strong></td>
+              <td class="success">Yes</td>
+              <td class="success">Yes</td>
+              <td class="success">Yes</td>
+            </tr>
+            <tr>
+              <td><strong>Benefit 2</strong></td>
+              <td class="danger">No</td>
+              <td class="success">Yes</td>
+              <td class="success">Yes</td>
+            </tr>
+            <tr>
+              <td><strong>Benefit 3</strong></td>
+              <td class="danger">No</td>
+              <td class="success">Yes</td>
+              <td class="success">Yes</td>
+            </tr>
+            <tr>
+              <td><strong>Benefit 4</strong></td>
+              <td class="danger">No</td>
+              <td class="danger">No</td>
+              <td class="success">Yes</td>
+            </tr>
+            <tr>
+              <td><strong>Benefit 5</strong></td>
+              <td class="danger">No</td>
+              <td class="danger">No</td>
+              <td class="success">Yes</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><a class="btn btn-primary" href="/register" role="button">Sign Up for Option 1</a></td>
+              <td><a class="btn btn-primary" href="/register" role="button">Sign Up for Option 2</a></td>
+              <td><a class="btn btn-primary" href="/register" role="button">Sign Up for Option 3</a></td>
+            </tr>
+          </tbody>
+        </table>
+		<div>
+
+	{% endblock %}
+
+</html>

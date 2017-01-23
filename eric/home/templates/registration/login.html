@@ -1,0 +1,31 @@
+
+	{% extends 'base.html' %}
+	
+	{% block content %}
+		
+		<div class="container-fluid text-center">
+			<div style="padding: 30px; border: solid 1px black; margin-top: 5vh;" class="col-md-4 col-md-offset-4">
+				<img src="">Company Logo Here</img>	
+			</div>
+			<h3>Sign In to Edgar Alert</h3>
+			<div class="col-md-2 col-md-offset-5" style="margin-top: 5vh; border: solid 1px grey">
+			 {% if user.is_anonymous %}
+			  <form class="form-signin" method="POST" action="">
+			  {% csrf_token %}
+				<div class="form-group">
+				  <h4 class="pull-left">Username</h4>
+				  {{ form.username }}
+				</div>
+				<div class="form-group">
+				  <h4 class="pull-left">Password</h4>
+				  {{ form.password }}
+				</div>
+				<button type="submit" name="login-button" class="btn btn-success">Sign in</button>
+			  </form>
+			{% endif %}
+			</div>
+		</div>
+		
+	{% endblock %}
+
+</html>

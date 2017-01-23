@@ -1,0 +1,142 @@
+	{% extends 'base.html' %}
+		
+    {% block content %}
+	{% load humanize %}
+	{% load staticfiles %}
+	
+	
+	<link rel="stylesheet" href="{% static 'css/user_profile.css' %}">
+	<div class="container-fluid">
+		<div class = "col-md-10 col-md-offset-1">
+			<h3>Select the Companies You Want to Track<br><small>Sort by clicking on the table headers.</small></h3>
+			{% for message in messages %}
+				{% if 'error' in message.tags %}
+					<div class="alert alert-danger">{{ message }}</div>
+				{% else %}
+					<div class="alert alert-{{ message.tags }}">{{ message }}</div>
+				{% endif %}
+			{% endfor %}
+			<table id="company-table" class="table table-bordered" style="cursor: pointer">
+				<thead>
+					<th>Company Name</th>
+					<th>ID</th>
+					<th>Ticker</th>
+					<th>Exchange</th>
+					<th>Industry</th>
+					<th>Sector</th>
+					<th>Market Cap</th>
+					<th>Beta</th>
+					<th>P/E Ratio</th>
+					<th>Price To Book</th>
+					<th>Employee Count</th>
+					
+				</thead>
+				<tbody>
+				
+				</tbody>
+			</table>
+			<br>
+			<form action="/user-profile/{{user.username}}/" method="POST">
+				{% csrf_token %}
+				<!--{{form.as_hidden}}-->
+				{{form}}
+				<button type='submit' class='btn btn-success btn-lg btn-block'>Save Selected Companies to Profile</button>
+			</form>
+		</div>
+		
+	</div>
+     
+    <script type="text/javascript">
+		$(document).ready(function() {
+
+			//datatable initialization
+			var table = $('#company-table').DataTable({
+				"fnInitComplete": function(oSettings, json) {
+					//preselect rows based on tracked companies in profile
+					var preselect_list = []
+					{% for company in currently_tracked_text %}
+						preselect_list.push('{{company}}');
+					{% endfor %}
+					console.log(preselect_list);
+					table
+					.column(1)
+					.data()
+					.each( function ( value, index ) {
+						if(jQuery.inArray(value.toString(), preselect_list) !== -1) {
+							table.row(index).select();
+						}
+						else {
+						
+						}
+					});
+				},
+				language: {
+					processing: '<span style="width:100%;"><img src="{% static 'css/ring-alt.gif' %}">'
+				},
+				"processing": true,
+					 "ajax": {
+						 "processing": true,
+						 "url": "{% url 'get_companies' %}",
+						 "dataSrc": ""
+					 },
+					 "columns": [
+							 { "data": "fields.name" },
+							 { "data": "pk" },
+							 { "data": "fields.ticker" },
+							 { "data": "fields.exchange" },
+							 { "data": "fields.industry" },
+							 { "data": "fields.sector" },
+							 { "data": "fields.market_cap" },
+							 { "data": "fields.beta" },
+							 { "data": "fields.PE_ratio" },
+							 { "data": "fields.Price_To_Book" },
+							 { "data": "fields.employee_count" },
+						 ], 
+				"scrollY": 400,
+				search: true,
+				"columnDefs": [
+					{
+						"targets": [ 1 ],
+						"visible": true,
+						"searchable": false
+					}],
+				select: {
+					style: 'multi'
+				},
+				"order": [[ 1, "asc" ]]
+			});
+		});
+	</script>
+	<script type="text/javascript">
+	
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+		var table = $('#company-table').DataTable()
+			//on select of rows, highlight options in user company model
+			table
+				.on( 'select', function (e, dt, type, indexes) {
+					var rowData = table.row( indexes ).data().pk;
+					$('#id_tracked_company option').filter(function () { 
+						return $(this).html() == rowData }).prop("selected",true);
+					})
+
+				.on( 'deselect', function ( e, dt, type, indexes ) {
+					var rowData = table.row( indexes ).data().pk;
+					$('#id_tracked_company option').filter(function () { 
+						return $(this).html() == rowData }).prop("selected",false);
+					});
+
+			});
+	</script>
+	
+	<!--SweetAlert success messsage on company update-->
+	<script>
+	$(document).ready(function(){
+		{% if updated %}
+			swal('Updated!', 'Your companies have been successfully updated.', 'success');
+		{% endif %}
+	});
+	</script>
+		
+	{% endblock %}
